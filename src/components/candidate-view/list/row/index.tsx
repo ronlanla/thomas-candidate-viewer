@@ -12,9 +12,16 @@ interface CandidateRowProps {
 class CandidateRow extends Component<CandidateRowProps> {
   render () {
     const { id, name, assessments } = this.props.candidate;
+
+    // TODO: Replace backgrounds with solid svg
+    const generateInitials = name.split(' ').map((character) => character[0]);
+
     return (
       <button className={'CandidateRow'}>
-        <span className={'CandidateRow_name'}>{name}</span>
+        <div className={'CandidateRow_name'}>
+          <span className={'CandidateRow_name_initials'}>{generateInitials}</span>
+          {name}
+        </div>
         <CandidateCard assessments={assessments}/>
       </button>
     );

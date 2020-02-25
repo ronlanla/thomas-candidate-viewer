@@ -17,12 +17,12 @@ class CandidateCard extends Component<CandidateCardProps> {
     const hasFinishDate = (assessment?: Assessment) => Boolean(assessment && assessment.complete_dt);
 
     return (
-      <div className={'CandidateCard'}>
+      <span className={'CandidateCard'}>
         <Icon name="Behaviour" class={classnames('CandidateCard_Icon', hasFinishDate(ppa) && 'CandidateCard_Icon-Behaviour')}/>
         <Icon name="Aptitude" class={classnames('CandidateCard_Icon', hasFinishDate(gia) && 'CandidateCard_Icon-Aptitude')}/>
         <Icon name="Emotion" class={classnames('CandidateCard_Icon', hasFinishDate(teique) && 'CandidateCard_Icon-Emotion')}/>
         <Icon name="Personality" class={classnames('CandidateCard_Icon', hasFinishDate(hpti) && 'CandidateCard_Icon-Personality')}/>
-      </div>
+      </span>
     );
   }
 }
