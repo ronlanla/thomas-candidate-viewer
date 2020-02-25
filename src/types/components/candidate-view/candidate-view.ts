@@ -1,28 +1,18 @@
+export type Assessment = {
+  sent_dt?: string,
+  complete_dt?: string,
+  result?: string
+}
+
 export type CandidateAssessments = {
   // Personal Profile Analysis
-  ppa?: {
-    sent_dt?: string,
-    complete_dt?: string,
-    result?: string
-  }
+  ppa?: Assessment;
   // General Intelligence Assessment
-  gia?: {
-    sent_dt?: string,
-    complete_dt?: string,
-    result?: string
-  }
+  gia?: Assessment;
   // Trait Emotional Intelligence Questionnaire
-  teique?: {
-    sent_dt?: string,
-    complete_dt?: string,
-    result?: string
-  }
+  teique?: Assessment;
   // High Potential Trait Indicator
-  hpti?: {
-    sent_dt?: string,
-    complete_dt?: string,
-    result?: string
-  }
+  hpti?: Assessment;
 }
 
 export type CandidateData = {

@@ -1,0 +1,33 @@
+.CandidateCard {
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+}
+
+.CandidateCard_Icon {
+  font-size: 10px;
+  background-color: #c6c6c6;
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.CandidateCard_Icon-Behaviour {
+  background-color: #294767;
+}
+
+.CandidateCard_Icon-Aptitude {
+  background-color: #61a073;
+}
+
+.CandidateCard_Icon-Emotion {
+  background-color: #508991;
+}
+
+.CandidateCard_Icon-Personality {
+  background-color: #7c5e9f;
+}
