@@ -3,6 +3,7 @@
     "jsx": "react",
     "moduleResolution": "node",
     "lib": ["es2019", "dom", "dom.iterable"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   }
 }
