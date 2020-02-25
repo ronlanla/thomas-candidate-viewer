@@ -1,0 +1,34 @@
+html, body, .App {
+  height: 100%;
+  width: 100%;
+  font-family: sans-serif;
+  margin: 0px;
+}
+
+.App {
+  display: grid;
+  grid-template-columns: 70px auto;
+  grid-template-rows: 50px auto;
+  grid-template-areas: 
+    "header header"
+    "nav container";
+}
+
+.Header {
+  color: #fff;
+  padding: 1em 2em 1em 70px;
+  grid-area: header;
+  background-color: #294767;
+  box-shadow: 0px 0px 6px 0px #000;
+}
+
+.Navigation {
+  grid-area: nav;
+}
+
+.Container {
+  grid-area: container;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
