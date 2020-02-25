@@ -28,6 +28,18 @@ module.exports = {
           'sass-loader'
         ],
       },
+      { // Handle font file loading
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader',
+        ],
+      },
+      { // Handle other media loading
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader',
+        ],
+      },
       // {
       //   test: /\.s[ac]ss$/i,
       //   use: [
