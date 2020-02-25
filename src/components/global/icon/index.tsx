@@ -11,7 +11,7 @@ interface IconProps {
 class Icon extends Component<IconProps> {
   render () {
     return (
-      <div className={classnames(`icon-${this.props.name}`, this.props.class)}/>
+      <div className={classnames('Icon', `icon-${this.props.name}`, this.props.class)}/>
     );
   }
 }
