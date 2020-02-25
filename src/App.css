@@ -7,6 +7,7 @@ html, body, .App {
 
 .App {
   display: grid;
+  background-color: #efefef;
   grid-template-columns: 70px auto;
   grid-template-rows: 50px auto;
   grid-template-areas: 

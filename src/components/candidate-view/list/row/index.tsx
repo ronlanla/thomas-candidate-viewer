@@ -11,7 +11,7 @@ interface CandidateRowProps {
 class CandidateRow extends Component<CandidateRowProps> {
   render () {
     return (
-      <div className={'CandidateRow'}>{this.props.candidate.name}</div>
+      <button className={'CandidateRow'}>{this.props.candidate.name}</button>
     );
   }
 }
