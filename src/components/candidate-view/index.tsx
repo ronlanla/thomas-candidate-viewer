@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import React, { Component } from 'react';
 import debounce from 'lodash.debounce';
 
@@ -20,6 +21,12 @@ class CandidateView extends Component<{}, CandidateViewState> {
   state = {
     pageNumber: 0,
     list: [],
+    testFilters: {
+      behavior: false,
+      aptitude: false,
+      emotion: false,
+      personality: false,
+    },
   }
 
   filterList(list: CandidateDataList, name?: string) {
@@ -52,6 +59,7 @@ class CandidateView extends Component<{}, CandidateViewState> {
   filterListDebounced = debounce((list: CandidateDataList, name?: string) => this.filterList(list, name), 500)
 
   render () {
+    const testFilters = this.state.testFilters;
     const itemsPerPage = 10;
     const updatePageNumber = (number: number) => {
       this.setState({ pageNumber: number });
@@ -59,6 +67,14 @@ class CandidateView extends Component<{}, CandidateViewState> {
 
     return (
       <div className={'CandidateView'}>
+        {/* TODO: Convert filter buttons into a global component */}
+        <div>
+          Filter:
+          <button className={classnames('CandidateView_button', testFilters.behavior && 'CandidateView_button-active')}>Behavior</button>
+          <button className={classnames('CandidateView_button', testFilters.aptitude && 'CandidateView_button-active')}>Aptitude</button>
+          <button className={classnames('CandidateView_button', testFilters.emotion && 'CandidateView_button-active')}>Emotion</button>
+          <button className={classnames('CandidateView_button', testFilters.personality && 'CandidateView_button-active')}>Personality</button>
+        </div>
         {/* TODO: Convert search into a global component */}
         <div className={'CandidateView_searchComponent'}>
           <input className={'CandidateView_searchComponent_search'} placeholder="Search people" onChange={(event) => this.filterListDebounced(list, event.target.value)}/>

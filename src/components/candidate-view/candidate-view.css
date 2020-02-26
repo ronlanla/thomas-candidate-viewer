@@ -4,13 +4,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
 }
 
 .CandidateView_searchComponent {
   position: relative;
   display: flex;
   width: calc(100% - 80px);
+  margin: 0 auto;
 }
 
 .CandidateView_searchComponent_search {
