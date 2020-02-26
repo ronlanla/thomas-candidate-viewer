@@ -32,6 +32,7 @@ class CandidateView extends Component<{}, CandidateViewState> {
   filterList(list: CandidateDataList, name?: string) {
     const candidateName = (list) => list.name.split(' ')[0];
     let newList = list;
+    let newPageNumber = this.state.pageNumber;
 
     // Sort list alphabetically
     newList.sort((a, b) => {
@@ -47,9 +48,14 @@ class CandidateView extends Component<{}, CandidateViewState> {
     // Filter list by name if it exists
     if (name) {
       newList = list.filter((a) => Boolean(a.name.toLowerCase().indexOf(name.toLowerCase()) < 0 ? 0 : 1));
+      newPageNumber = 0;
     }
 
-    return this.setState({ list: newList });
+    return this.setState({ list: newList, pageNumber: newPageNumber });
+  }
+
+  updatePageNumber = (number: number) => {
+    this.setState({ pageNumber: number });
   }
 
   componentWillMount() {
@@ -61,9 +67,6 @@ class CandidateView extends Component<{}, CandidateViewState> {
   render () {
     const testFilters = this.state.testFilters;
     const itemsPerPage = 10;
-    const updatePageNumber = (number: number) => {
-      this.setState({ pageNumber: number });
-    }
 
     return (
       <div className={'CandidateView'}>
@@ -81,7 +84,7 @@ class CandidateView extends Component<{}, CandidateViewState> {
           <Icon name="Job" class={'CandidateView_searchComponent_icon'}/>
         </div>
         <CandidateList list={this.state.list.slice(this.state.pageNumber * itemsPerPage, (this.state.pageNumber + 1) * itemsPerPage)}/>
-        <Pagination listCount={list.length} itemsPerPage={itemsPerPage} updatePageNumber={updatePageNumber} pageNumber={this.state.pageNumber}/>
+        <Pagination listCount={this.state.list.length} itemsPerPage={itemsPerPage} updatePageNumber={this.updatePageNumber} pageNumber={this.state.pageNumber}/>
       </div>
     );
   }

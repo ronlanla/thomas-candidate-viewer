@@ -16,7 +16,7 @@ class Pagination extends Component<PaginationProps> {
     let { listCount, itemsPerPage, updatePageNumber, pageNumber } = this.props;
 
     const validifyPageNumber = (number: number) => {
-      const maxPageNumber = Math.floor(listCount / itemsPerPage) - 1;
+      const maxPageNumber = Math.ceil(listCount / itemsPerPage) - 1;
 
       // Check if page number is less than 0 as array indexes cannot be negative
       if (number < 0) {
