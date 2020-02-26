@@ -8,28 +8,39 @@ import Pagination from '../global/pagination';
 import { CandidateDataList } from '../../types/components/candidate-view/candidate-view';
 
 // Easier to just import the json here since typescript supports it
-import list from '../../resources/candidate-data.json';
+import candidateList from '../../resources/candidate-data.json';
 
 import './candidate-view.css';
+
+type TestFilters = {
+  behavior: boolean,
+  aptitude: boolean,
+  emotion: boolean,
+  personality: boolean,
+}
 
 interface CandidateViewState {
   pageNumber: number;
   list: CandidateDataList;
+  testFilters: TestFilters;
 }
 
 class CandidateView extends Component<{}, CandidateViewState> {
-  state = {
-    pageNumber: 0,
-    list: [],
-    testFilters: {
-      behavior: false,
-      aptitude: false,
-      emotion: false,
-      personality: false,
-    },
+  constructor(props) {
+    super(props);
+    this.state = {
+      pageNumber: 0,
+      list: [],
+      testFilters: {
+        behavior: false,
+        aptitude: false,
+        emotion: false,
+        personality: false,
+      },
+    }
   }
 
-  filterList(list: CandidateDataList, name?: string) {
+  filterList(list: CandidateDataList, name?: string, testFilters?: TestFilters) {
     const candidateName = (list) => list.name.split(' ')[0];
     let newList = list;
     let newPageNumber = this.state.pageNumber;
@@ -51,15 +62,40 @@ class CandidateView extends Component<{}, CandidateViewState> {
       newPageNumber = 0;
     }
 
-    return this.setState({ list: newList, pageNumber: newPageNumber });
+    // TODO: Fix filter
+    if (testFilters) {
+      list.filter((a) => {
+        switch(a.assessments) {
+          case a.assessments.gia && testFilters.aptitude:
+            return true;
+          case a.assessments.hpti && testFilters.personality:
+            return true;
+          case a.assessments.ppa && testFilters.behavior:
+            return true;
+          case a.assessments.teique && testFilters.emotion:
+            return true;
+          default:
+            return false;
+        }
+      });
+    }
+
+    return this.setState({ list: newList, pageNumber: newPageNumber, testFilters: testFilters || this.state.testFilters });
   }
 
   updatePageNumber = (number: number) => {
     this.setState({ pageNumber: number });
   }
 
+  // TODO: Update function to accept more realistic filter args
+  toggleFilter(testFilter: 'behavior' | 'aptitude' | 'emotion' | 'personality') {
+    const newFilters = this.state.testFilters;
+    newFilters[testFilter] = !newFilters[testFilter];
+    this.filterList(candidateList, undefined, newFilters);
+  }
+
   componentWillMount() {
-    this.filterList(list);
+    this.filterList(candidateList);
   }
 
   filterListDebounced = debounce((list: CandidateDataList, name?: string) => this.filterList(list, name), 500)
@@ -73,14 +109,22 @@ class CandidateView extends Component<{}, CandidateViewState> {
         {/* TODO: Convert filter buttons into a global component */}
         <div>
           Filter:
-          <button className={classnames('CandidateView_button', testFilters.behavior && 'CandidateView_button-active')}>Behavior</button>
-          <button className={classnames('CandidateView_button', testFilters.aptitude && 'CandidateView_button-active')}>Aptitude</button>
-          <button className={classnames('CandidateView_button', testFilters.emotion && 'CandidateView_button-active')}>Emotion</button>
-          <button className={classnames('CandidateView_button', testFilters.personality && 'CandidateView_button-active')}>Personality</button>
+          <button className={classnames('CandidateView_button', testFilters.behavior && 'CandidateView_button-active')} onClick={() => this.toggleFilter('behavior')}>
+            Behavior
+          </button>
+          <button className={classnames('CandidateView_button', testFilters.aptitude && 'CandidateView_button-active')} onClick={() => this.toggleFilter('aptitude')}>
+            Aptitude
+          </button>
+          <button className={classnames('CandidateView_button', testFilters.emotion && 'CandidateView_button-active')} onClick={() => this.toggleFilter('emotion')}>
+            Emotion
+          </button>
+          <button className={classnames('CandidateView_button', testFilters.personality && 'CandidateView_button-active')} onClick={() => this.toggleFilter('personality')}>
+            Personality
+          </button>
         </div>
         {/* TODO: Convert search into a global component */}
         <div className={'CandidateView_searchComponent'}>
-          <input className={'CandidateView_searchComponent_search'} placeholder="Search people" onChange={(event) => this.filterListDebounced(list, event.target.value)}/>
+          <input className={'CandidateView_searchComponent_search'} placeholder="Search people" onChange={(event) => this.filterListDebounced(candidateList, event.target.value)}/>
           <Icon name="Job" class={'CandidateView_searchComponent_icon'}/>
         </div>
         <CandidateList list={this.state.list.slice(this.state.pageNumber * itemsPerPage, (this.state.pageNumber + 1) * itemsPerPage)}/>
