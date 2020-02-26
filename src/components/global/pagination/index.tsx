@@ -48,7 +48,7 @@ class Pagination extends Component<PaginationProps> {
       <div className={'Pagination'}>
         <button onClick={() => setPageNumber('FIRST')}>{'<< First'}</button>
         <button onClick={() => setPageNumber('PREV')}>{'< Prev'}</button>
-        Page: {pageNumber + 1}
+        Page: {pageNumber + 1}/{Math.ceil(listCount / itemsPerPage)}
         <button onClick={() => setPageNumber('NEXT')}>{'Next >'}</button>
         <button onClick={() => setPageNumber('LAST')}>{'Last >>'}</button>
       </div>

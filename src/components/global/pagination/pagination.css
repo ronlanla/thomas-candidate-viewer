@@ -3,3 +3,15 @@
   display: flex;
   justify-content: space-around;
 }
+
+.Pagination > button {
+  background-color: #fff;
+  border: 0;
+  color: #2f9cd3;
+  font-size: 13px;
+  padding: 5px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0px 1px 2px 0px #8e8e8e;
+  font-weight: bold;
+}
