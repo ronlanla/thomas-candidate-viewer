@@ -7,9 +7,11 @@
     "watch": "webpack -w"
   },
   "dependencies": {
+    "@types/lodash.debounce": "^4.0.6",
     "@types/react": "^16.9.22",
     "@types/react-dom": "^16.9.5",
     "classnames": "^2.2.6",
+    "lodash.debounce": "^4.0.8",
     "normalize.css": "^8.0.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import debounce from 'lodash.debounce';
 
 import CandidateList from './list';
 import Icon from '../global/icon';
@@ -12,19 +13,21 @@ import './candidate-view.css';
 
 interface CandidateViewState {
   pageNumber: number;
+  list: CandidateDataList;
 }
 
 class CandidateView extends Component<{}, CandidateViewState> {
   state = {
     pageNumber: 0,
-    list: this.filterList(list),
+    list: [],
   }
 
-  /** Sort list alphabetically */
-  filterList(list: CandidateDataList) {
+  filterList(list: CandidateDataList, name?: string) {
     const candidateName = (list) => list.name.split(' ')[0];
+    let newList = list;
 
-    list.sort((a, b) => {
+    // Sort list alphabetically
+    newList.sort((a, b) => {
       if (candidateName(a) < candidateName(b)) {
         return -1;
       } else if (candidateName(a) > candidateName(b)) {
@@ -33,7 +36,20 @@ class CandidateView extends Component<{}, CandidateViewState> {
         return 0;
       }
     });
+
+    // Filter list by name if it exists
+    if (name) {
+      newList = list.filter((a) => Boolean(a.name.toLowerCase().indexOf(name.toLowerCase()) < 0 ? 0 : 1));
+    }
+
+    return this.setState({ list: newList });
   }
+
+  componentWillMount() {
+    this.filterList(list);
+  }
+
+  filterListDebounced = debounce((list: CandidateDataList, name?: string) => this.filterList(list, name), 500)
 
   render () {
     const itemsPerPage = 10;
@@ -45,10 +61,10 @@ class CandidateView extends Component<{}, CandidateViewState> {
       <div className={'CandidateView'}>
         {/* TODO: Convert search into a global component */}
         <div className={'CandidateView_searchComponent'}>
-          <input className={'CandidateView_searchComponent_search'} placeholder="Search people"/>
+          <input className={'CandidateView_searchComponent_search'} placeholder="Search people" onChange={(event) => this.filterListDebounced(list, event.target.value)}/>
           <Icon name="Job" class={'CandidateView_searchComponent_icon'}/>
         </div>
-        <CandidateList list={list.slice(this.state.pageNumber * itemsPerPage, (this.state.pageNumber + 1) * itemsPerPage)}/>
+        <CandidateList list={this.state.list.slice(this.state.pageNumber * itemsPerPage, (this.state.pageNumber + 1) * itemsPerPage)}/>
         <Pagination listCount={list.length} itemsPerPage={itemsPerPage} updatePageNumber={updatePageNumber} pageNumber={this.state.pageNumber}/>
       </div>
     );
