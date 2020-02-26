@@ -20,12 +20,15 @@
 }
 
 .CandidateRow_name_initials {
-  font-size: 12px;
+  font-size: 10px;
   color: #fff;
-  padding: 6px;
+  padding: 5px;
   margin-right: 7px;
   background-color: #2f9cd3;
   border-radius: 50%;
   width: 16px;
   height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
