@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import CandidateList from './list';
+import Icon from '../global/icon';
 import Pagination from '../global/pagination';
 import { CandidateDataList } from '../../types/components/candidate-view/candidate-view';
 
@@ -42,6 +43,11 @@ class CandidateView extends Component<{}, CandidateViewState> {
 
     return (
       <div className={'CandidateView'}>
+        {/* TODO: Convert search into a global component */}
+        <div className={'CandidateView_searchComponent'}>
+          <input className={'CandidateView_searchComponent_search'} placeholder="Search people"/>
+          <Icon name="Job" class={'CandidateView_searchComponent_icon'}/>
+        </div>
         <CandidateList list={list.slice(this.state.pageNumber * itemsPerPage, (this.state.pageNumber + 1) * itemsPerPage)}/>
         <Pagination listCount={list.length} itemsPerPage={itemsPerPage} updatePageNumber={updatePageNumber} pageNumber={this.state.pageNumber}/>
       </div>

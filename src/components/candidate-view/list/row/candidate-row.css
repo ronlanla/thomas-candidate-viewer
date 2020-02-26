@@ -1,5 +1,5 @@
 .CandidateRow {
-  height: 40px;
+  height: 48px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -17,6 +17,8 @@
   font-size: 14px;
   font-weight: bold;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .CandidateRow_name_initials {

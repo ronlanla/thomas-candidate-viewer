@@ -6,3 +6,27 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.CandidateView_searchComponent {
+  position: relative;
+  display: flex;
+  width: calc(100% - 80px);
+}
+
+.CandidateView_searchComponent_search {
+  width: 100%;
+  background-color: #2947671a;
+  border: 0;
+  height: 30px;
+  border-radius: 2px;
+  padding: 0px 40px;
+}
+
+.CandidateView_searchComponent_icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 8px;
+  font-size: 12px;
+  margin-left: 4px;
+}
